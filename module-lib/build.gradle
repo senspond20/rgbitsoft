@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+    id 'antlr'
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
+test {
+    useJUnitPlatform()
+}
+

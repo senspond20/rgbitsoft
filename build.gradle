@@ -1,19 +1,109 @@
-plugins {
-    id 'java'
+buildscript {
+    ext {
+        springBootVersion = '2.3.8.RELEASE'
+        queryDslVersion = "4.4.0"
+        querydslPluginVersion = '1.0.10'
+    }
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven {url "https://plugins.gradle.org/m2/"  }
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE")
+        classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}"
+        classpath 'me.champeau.gradle:antlr4-gradle-plugin:0.1'
+        classpath 'org.kordamp.gradle:markdown-gradle-plugin:2.2.0'
+    }
 }
-
-group 'org.example'
-version '1.0-SNAPSHOT'
-
 repositories {
-    mavenCentral()
+    jcenter()
+}
+allprojects {
+    group 'com.rgbitsoft'
+    version '1.0-SNAPSHOT'
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.kordamp.gradle.markdown'
+
+    sourceCompatibility = 11
+
+    repositories {
+        mavenCentral()
+        //ojdbc
+        maven { url "https://code.lds.org/nexus/content/groups/main-repo"}
+
+    }
+
+    /**
+     * 모든 멀티모듈 프로젝트에 공통 의존성
+     */
+    dependencies {
+        implementation 'junit:junit:4.12'
+        implementation 'org.projectlombok:lombok:1.18.18'
+        compileOnly 'org.projectlombok:lombok:1.18.16'
+        annotationProcessor 'org.projectlombok:lombok:1.18.16'
+        compile "org.slf4j:slf4j-api"
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+
+        // spring
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+// 해당 task로 서브 모듈 추가시 기초적인 디렉토리를 자동으로 생성해줍니다.
+    task initSourceFolders {
+        sourceSets*.java.srcDirs*.each {
+            if (!it.exists()) {
+                it.mkdirs()
+            }
+        }
+
+        sourceSets*.resources.srcDirs*.each {
+            if (!it.exists()) {
+                it.mkdirs()
+            }
+        }
+    }
+    task cleanGeneatedDir(type: Delete) {
+        delete file('src/main/generated')
+    }
 }
 
-test {
-    useJUnitPlatform()
+
+project(':module-exam') {
+
+}
+project(':module-lib') {
+    apply plugin: 'antlr'
+    apply plugin: 'maven-publish'
+    dependencies {
+        implementation 'com.google.code.gson:gson:2.8.6'
+        implementation group: 'org.graalvm.js', name: 'js', version: '19.2.0'
+        implementation group: 'org.graalvm.js', name: 'js-scriptengine', version: '19.2.0'
+        implementation 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
+        antlr "org.antlr:antlr4:4.8-1"
+        compile "org.antlr:antlr4-runtime:4.8-1"
+
+    }
+    generateGrammarSource {
+        arguments += [
+                "-visitor", "-long-messages"
+        ]
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                }
+            }
+        }
+    }
 }

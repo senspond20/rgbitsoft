@@ -1,2 +1,6 @@
 rootProject.name = 'RGBITSOFT_PROJECT'
 
+
+include 'module-exam'
+include 'module-lib'
+

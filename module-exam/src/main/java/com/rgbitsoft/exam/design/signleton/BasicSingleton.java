@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 
 class SocketClient{
     private static SocketClient socketClient;
-
     // 기본 생성자 금지
     private SocketClient(){}
 
@@ -18,6 +17,7 @@ class SocketClient{
         System.out.println("connect");
     }
 }
+
 class AClass{
     private SocketClient socketClient;
     public AClass(){

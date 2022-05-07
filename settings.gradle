@@ -9,5 +9,6 @@ include 'web-app'
 
 include 'module-exam'
 include 'module-lib'
+include 'module-data'
 include 'module-security'
 

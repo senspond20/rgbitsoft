@@ -80,7 +80,9 @@ subprojects {
 
 
 project(':module-exam') {
-
+    dependencies {
+        compile project(':module-security')
+    }
 }
 project(':module-lib') {
     apply plugin: 'antlr'
@@ -106,4 +108,19 @@ project(':module-lib') {
             }
         }
     }
+}
+/**
+ * 스프링 시큐리티
+ */
+project(':module-security') {
+    dependencies {
+//        compile project(':module-data')
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    }
+}
+
+project(':web-app') {
+
 }

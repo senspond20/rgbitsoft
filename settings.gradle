@@ -1,6 +1,13 @@
-rootProject.name = 'RGBITSOFT_PROJECT'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'app'
 
+include 'web-app'
 
 include 'module-exam'
 include 'module-lib'
+include 'module-security'
 

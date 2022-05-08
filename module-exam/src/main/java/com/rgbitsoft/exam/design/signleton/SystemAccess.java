@@ -15,13 +15,17 @@ public class SystemAccess{
     private SystemAccess() {
     }
 
+    // DCL(Double-Checked-Locking) Singleton 패턴
+
     public static SystemAccess getInstance() {
-        synchronized (SystemAccess.class) {
-            if (instance == null) {
-                instance = new SystemAccess();
+        if(instance == null){
+            synchronized (SystemAccess.class) {
+                if (instance == null) {
+                    instance = new SystemAccess();
+                }
             }
-            return instance;
         }
+        return instance;
     }
 
     /**

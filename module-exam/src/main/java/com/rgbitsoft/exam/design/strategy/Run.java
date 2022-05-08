@@ -1,5 +1,9 @@
 package com.rgbitsoft.exam.design.strategy;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.security.NoSuchAlgorithmException;
+
 /**
  * 전략 패턴 , 객체지향의 꽃
  * 유사한 행위들을 캡슐화 하여, 객체의 행위를 바꾸고 싶은 경우 직접 변경하는 것이 아닌 전략만 변경
@@ -7,7 +11,7 @@ package com.rgbitsoft.exam.design.strategy;
  */
 public class Run {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
         Encoder encoder = new Encoder();
 
         // Base64
@@ -26,9 +30,18 @@ public class Run {
         encoder.setEncodingStrategy(new AppendStrategy());
         String appendResult = encoder.getMessage(msg);
 
+        encoder.setEncodingStrategy(new BcryptStragey(new BCryptPasswordEncoder()));
+        String bcryptResult = encoder.getMessage(msg);
+
+        encoder.setEncodingStrategy(Sha256Stragey.getInstance());
+
+
+        String sha256 = encoder.getMessage(msg);
 
         System.out.println(base64Result);
         System.out.println(normalResult);
         System.out.println(appendResult);
+        System.out.println(bcryptResult);
+        System.out.println(sha256);
     }
 }

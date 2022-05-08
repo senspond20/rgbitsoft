@@ -84,11 +84,11 @@ public class DateUtilsTest {
 
     @Test
     void DateConvert2Test(){
-        LocalDateConvert dcv = new LocalDateConvert(2020, 16, 15);
-
-        System.out.println(dcv.getDay());
-        System.out.println(dcv.getLocalDate());
-        System.out.println(dcv.getDate());
+//        LocalDateConvert dcv = new LocalDateConvert(2020, 16, 15);
+//
+//        System.out.println(dcv.getDay());
+//        System.out.println(dcv.getLocalDate());
+//        System.out.println(dcv.getDate());
     }
 
     @Test

@@ -7,9 +7,10 @@ class SocketClient{
     // 기본 생성자 금지
     private SocketClient(){}
 
+    //https://javaplant.tistory.com/21 참고
     public static SocketClient getInstance(){
-        if(socketClient == null){
-            socketClient = new SocketClient();
+        if(socketClient == null){  // 1번 : 쓰레드가 동시 접근시 문제
+            socketClient = new SocketClient();  // 2번 : 쓰레드가 동시 접근시 인스턴스 여러번 생성
         }
         return socketClient;
     }

@@ -38,12 +38,12 @@ public class AccountRepoTests {
         List<AccountDto> list = accountRepository.findAllFromQueryDSL();
         list.forEach(System.out::println);
     }
-    @DisplayName("Query DSL Custom find")
-    @Test
-    void findAllTest3(){
-        AccountDto accountDto = accountRepository.findByEmailFromQueryDSL("1231@gmail.com");
-        System.out.println(accountDto);
-    }
+//    @DisplayName("Query DSL Custom find")
+//    @Test
+//    void findAllTest3(){
+//        AccountDto accountDto = accountRepository.findByEmailFromQueryDSL("1231@gmail.com");
+//        System.out.println(accountDto);
+//    }
 
     @Test
     void test3(){

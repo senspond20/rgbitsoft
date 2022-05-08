@@ -9,12 +9,14 @@ public class Run {
     public static void main(String[] args) {
         Button button = new Button("버튼");
 
-        button.addListener(new IButtonListener() {
-            @Override
-            public void clickEvent(String event) {
-                System.out.println(event);
-            }
-        });
+//        button.addListener(new IButtonListener() {
+//            @Override
+//            public void clickEvent(String event) {
+//                System.out.println(event);
+//            }
+//        });
+
+        button.addListener((msg)-> System.out.println(msg));
 
         button.click("메시지 전달 : click1");
         button.click("메시지 전달 : click2");

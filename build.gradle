@@ -32,8 +32,8 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.kordamp.gradle.markdown'
 
-    sourceCompatibility = 11
-
+//    sourceCompatibility = 11
+    sourceCompatibility = 8
     repositories {
         mavenCentral()
         //ojdbc
@@ -47,6 +47,8 @@ subprojects {
     dependencies {
         implementation 'junit:junit:4.12'
         implementation 'org.projectlombok:lombok:1.18.18'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         compileOnly 'org.projectlombok:lombok:1.18.16'
         annotationProcessor 'org.projectlombok:lombok:1.18.16'
         compile "org.slf4j:slf4j-api"
@@ -57,6 +59,10 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+        // https://mvnrepository.com/artifact/com.google.guava/guava
+        implementation group: 'com.google.guava', name: 'guava', version: '19.0'
+
     }
 
 // 해당 task로 서브 모듈 추가시 기초적인 디렉토리를 자동으로 생성해줍니다.
@@ -143,6 +149,20 @@ project(':module-security') {
 
     }
 }
+
+project(':module-engine'){
+    dependencies {
+        // https://mvnrepository.com/artifact/org.springframework.data/spring-data-elasticsearch
+        //implementation group: 'org.springframework.data', name: 'spring-data-elasticsearch', version: '4.3.4'
+        compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+        compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.9.1'
+        compile 'org.elasticsearch.client:elasticsearch-rest-client:7.9.3'
+        compile 'org.elasticsearch:elasticsearch:7.9.3'
+
+        runtimeOnly 'com.h2database:h2'
+    }
+}
+
 
 project(':web-app') {
     dependencies {

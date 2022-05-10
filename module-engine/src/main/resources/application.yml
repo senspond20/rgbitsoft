@@ -1,0 +1,36 @@
+server:
+    port:8090
+
+spring:
+    profiles: "local"
+    devtools:
+        livereload:
+            enabled: true
+# Local 환경
+---
+spring:
+    profiles.active: local
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        show-sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MariaDB103Dialect # Maria 10.03
+                #dialect : org.hibernate.dialect.Oracle10gDialect # oracle11g
+                storage_engine: innodb
+                show_sql: true
+                format_sql: true
+                use_sql_comments: true
+        h2:
+            console:
+                enabled: true
+    datasource:
+        hikari:
+            jdbc-url: jdbc:h2:mem://localhost/~/testdb;MODE=ORACLE;DB_CLOSE_DELAY=-1
+    on-profile: "local"
+
+elasticsearch.host:
+    127.0.0.1:9200

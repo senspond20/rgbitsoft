@@ -166,7 +166,7 @@ project(':module-engine'){
 
 project(':web-app') {
     dependencies {
-        compile project(':module-lib')
+      //  compile project(':module-lib')
         compile project(':module-data')
 
     }

@@ -1,0 +1,10 @@
+spring:
+  profiles: "local"
+# Local 환경
+---
+spring:
+  profiles.active: local
+  redis:
+    host: localhost
+    password:
+    port: 6379

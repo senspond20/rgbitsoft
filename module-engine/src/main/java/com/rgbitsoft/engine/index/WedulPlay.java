@@ -10,12 +10,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
  * @author wedul
  * @since 2019-02-09
  **/
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @ToString
-@Builder
-@Document(indexName = "wedul_play", type = "story")
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Document(indexName = "wedul_play")
 public class WedulPlay {
 
     @Id
@@ -25,4 +24,12 @@ public class WedulPlay {
     private long startAt;
     private long endAt;
 
+    @Builder
+    public WedulPlay(String id, String title, String user, long startAt, long endAt){
+        this.id = id;
+        this.title = title;
+        this.user = user;
+        this.startAt = startAt;
+        this.endAt = endAt;
+    }
 }

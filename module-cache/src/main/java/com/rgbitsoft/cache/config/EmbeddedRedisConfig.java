@@ -11,8 +11,8 @@ import javax.annotation.PreDestroy;
 import java.io.IOException;
 
 @Slf4j //lombok
-@Profile("local") // profile이 local일때만 활성화
-@Configuration
+//@Profile("local") // profile이 local일때만 활성화
+//@Configuration
 public class EmbeddedRedisConfig {
 
     @Value("${spring.redis.port}")

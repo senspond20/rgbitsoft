@@ -47,8 +47,6 @@ subprojects {
     dependencies {
         implementation 'junit:junit:4.12'
         implementation 'org.projectlombok:lombok:1.18.18'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
         compileOnly 'org.projectlombok:lombok:1.18.16'
         annotationProcessor 'org.projectlombok:lombok:1.18.16'
         compile "org.slf4j:slf4j-api"
@@ -56,9 +54,9 @@ subprojects {
         testCompile group: 'junit', name: 'junit', version: '4.12'
 
         // spring
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        implementation 'org.springframework.boot:spring-boot-starter'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
         // https://mvnrepository.com/artifact/com.google.guava/guava
         implementation group: 'com.google.guava', name: 'guava', version: '19.0'
@@ -91,7 +89,7 @@ project(':module-exam') {
         implementation group: 'commons-codec', name: 'commons-codec', version: '1.9'
     }
 }
-project(':module-lib') {
+project(':module-core') {
     apply plugin: 'antlr'
     apply plugin: 'maven-publish'
     dependencies {
@@ -103,9 +101,17 @@ project(':module-lib') {
 
         implementation group: 'commons-codec', name: 'commons-codec', version: '1.9'
 
+        // https://mvnrepository.com/artifact/org.commonmark/commonmark
+        implementation group: 'org.commonmark', name: 'commonmark', version: '0.18.1'
+        implementation group: 'org.commonmark', name: 'commonmark-ext-heading-anchor', version: '0.18.1'
+        implementation group: 'org.commonmark', name: 'commonmark-ext-gfm-tables', version: '0.18.1'
+        implementation group: 'org.commonmark', name: 'commonmark-ext-gfm-strikethrough', version: '0.18.1'
+        implementation group: 'org.commonmark', name: 'commonmark-ext-task-list-items', version: '0.18.1'
+
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-configuration-processor'
         antlr "org.antlr:antlr4:4.8-1"
         compile "org.antlr:antlr4-runtime:4.8-1"
-
     }
     generateGrammarSource {
         arguments += [
@@ -120,24 +126,35 @@ project(':module-lib') {
         }
     }
 }
+
+// Redis
+project(':module-cache'){
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        implementation 'it.ozimov:embedded-redis:0.7.2'
+    }
+}
+
 /**
- * 스프링 Data
+ * 스프링 Data JPA/QueryDSL
  */
 project(':module-data') {
     dependencies {
-
+        // JPA
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         // queryDsl
         implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
         implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
         annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
         annotationProcessor "jakarta.persistence:jakarta.persistence-api"
         annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-
+        // H2
         runtimeOnly 'com.h2database:h2'
-        //compile 'com.oracle:ojdbc6:11.2.0.3'
-
+//        compile 'com.oracle:ojdbc6:11.2.0.3'
     }
 }
+
 /**
  * 스프링 시큐리티
  */
@@ -155,9 +172,12 @@ project(':module-engine'){
         // https://mvnrepository.com/artifact/org.springframework.data/spring-data-elasticsearch
         //implementation group: 'org.springframework.data', name: 'spring-data-elasticsearch', version: '4.3.4'
         compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-        compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.9.1'
-        compile 'org.elasticsearch.client:elasticsearch-rest-client:7.9.3'
-        compile 'org.elasticsearch:elasticsearch:7.9.3'
+        compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.7.0'
+        compile 'org.elasticsearch.client:elasticsearch-rest-client:7.7.0'
+        compile 'org.elasticsearch:elasticsearch:7.7.0'
+        // https://mvnrepository.com/artifact/org.apache.lucene/lucene-core
+        implementation group: 'org.apache.lucene', name: 'lucene-core', version: '7.7.0'
+
 
         runtimeOnly 'com.h2database:h2'
     }
@@ -166,6 +186,9 @@ project(':module-engine'){
 
 project(':web-app') {
     dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
       //  compile project(':module-lib')
         compile project(':module-data')
 

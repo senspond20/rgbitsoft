@@ -26,15 +26,16 @@ import static org.junit.Assert.*;
 //SpringBootConfiguration
 public class WedulPlayServcieTests {
 
-    WedulPlayService wedulPlayService;
+    @Autowired
+    private WedulPlayService wedulPlayService;
 
-    @Autowired(required = true)
-    @Qualifier(value = "wedulPlayRepository")
-    WedulPlayRepository wedulPlayRepository;
+//    @Autowired(required = true)
+//    @Qualifier(value = "wedulPlayRepository")
+//    WedulPlayRepository wedulPlayRepository;
 
     @BeforeEach
     public void setup() {
-        wedulPlayService = new WedulPlayService(wedulPlayRepository);
+        //wedulPlayService = new WedulPlayService(wedulPlayRepository);
 
         wedulPlayService.save(WedulPlay.builder().title("안녕 이건 테스트야").user("위들").startAt(1242421424).endAt(23214124).build());
         wedulPlayService.save(WedulPlay.builder().title("안녕 이건 테스트야").user("강남스타일").startAt(1242421424).endAt(23214124).build());

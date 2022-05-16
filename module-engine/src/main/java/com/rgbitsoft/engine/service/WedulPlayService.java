@@ -5,6 +5,7 @@ import com.rgbitsoft.engine.index.WedulPlay;
 import com.rgbitsoft.engine.repository.WedulPlayRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +16,13 @@ import java.util.List;
  * @author wedul
  * @since 2019-02-09
  **/
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class WedulPlayService {
 
-    private WedulPlayRepository wedulPlayRepository;
+    private final WedulPlayRepository wedulPlayRepository;
 
     public void save(WedulPlay play) {
         wedulPlayRepository.save(play);

@@ -1,6 +1,6 @@
 grammar Calculator;
 @header {
-    package com.rgbitsoft.lib.parser.calculator;
+    package com.rgbitsoft.core.parser.calculator;
 }
 expression :
     expression op=(MUL | DIV) expression #mulDiv

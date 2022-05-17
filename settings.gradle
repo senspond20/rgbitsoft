@@ -6,9 +6,12 @@ pluginManagement {
 rootProject.name = 'app'
 
 include 'web-app'
+include 'web-admin'
+include 'web-core'
 
 include 'module-exam'
-include 'module-core'
+include 'module-lib'
+
 include 'module-cache'
 include 'module-data'
 include 'module-security'

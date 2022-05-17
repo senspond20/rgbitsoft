@@ -1,5 +1,6 @@
 package com.rgbitsoft.data.model.entity;
 
+import com.rgbitsoft.data.model.common.AbstractBaseEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @ToString
 @EqualsAndHashCode(of = "id")
 @Table(name = "ACCOUNT")
-public class Account {
+public class Account extends AbstractBaseEntity {
 
     @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)  //: Mysql
@@ -33,6 +34,8 @@ public class Account {
     @CreationTimestamp
     private Timestamp createDate;
 
+    @Column(nullable = false)
+    private String role;
 
     @Builder
     public Account(String nickname, String password, String email){
